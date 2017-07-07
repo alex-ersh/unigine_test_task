@@ -84,9 +84,9 @@ private:
                 auto match = *next;
                 auto domain = match.format("$2");
                 auto path = match.format("$3");
-                // Если после домена ничего не было (пробел или EOL), то
-                // берется путь по умолчанию.
-                if (path.empty() || path == " ") {
+                // Если никакого приемлемого пути не найдено,
+                // то берется путь по умолчанию.
+                if (path.empty()) {
                     path = "/";
                 }
 
@@ -174,7 +174,7 @@ int main(int argc, char **argv)
     std::regex url_re;
     try {
         url_re =
-            "(https?://)([-a-zA-Z0-9\\.-]+)(\\s|$|/[-a-zA-Z0-9\\.,/\\+_]*)";
+            "(https?://)([-a-zA-Z0-9\\.-]+)([a-zA-Z0-9\\.,/\\+_]*)";
     } catch (std::regex_error& ex) {
         std::cout << "regex_error: " << ex.what() << '\n';
         return -1;
